@@ -1,6 +1,7 @@
-package personalAccount;
+package googleCrome.personalAccount;
 
 import User.User;
+import io.qameta.allure.junit4.DisplayName;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -39,8 +40,8 @@ public class PersonalAccountTest {
         user.deleteUser(email, pass);
     }
 
-    //Проверяем переход по клику на «Личный кабинет»
     @Test
+    @DisplayName("GoogleCrome. Проверяем переход по клику на «Личный кабинет»")
     public void CheckClickPersonalAccTest() {
         mainPage = open(mainPage.getUrl(), MainPage.class);
         mainPage.clickPersonalAccButton();
@@ -49,8 +50,8 @@ public class PersonalAccountTest {
         Assert.assertTrue(personalAccPage.existOrderButton());
     }
 
-    //Проверяем переход из личного кабинета в конструктор по клику "Конструктор"
     @Test
+    @DisplayName("GoogleCrome. Проверяем переход из личного кабинета в конструктор по клику \"Конструктор\"")
     public void CheckClickConstructorFromPersonalAccTest() {
         mainPage = open(mainPage.getUrl(), MainPage.class);
         mainPage.clickPersonalAccButton();
@@ -60,8 +61,8 @@ public class PersonalAccountTest {
         Assert.assertTrue(mainPage.existTextBurger());
     }
 
-    //Проверяем переход из личного кабинета в конструктор по клику на логотип
     @Test
+    @DisplayName("GoogleCrome. Проверяем переход из личного кабинета в конструктор по клику на логотип")
     public void CheckClickLogoFromPersonalAccTest() {
         mainPage = open(mainPage.getUrl(), MainPage.class);
         mainPage.clickPersonalAccButton();
@@ -71,8 +72,8 @@ public class PersonalAccountTest {
         Assert.assertTrue(mainPage.existTextBurger());
     }
 
-    //Проверяем кнопку Выход в личном кабинете
     @Test
+    @DisplayName("GoogleCrome. Проверяем кнопку Выход в личном кабинете")
     public void CheckExitButtonFromPersonalAccTest() {
         mainPage = open(mainPage.getUrl(), MainPage.class);
         mainPage.clickPersonalAccButton();

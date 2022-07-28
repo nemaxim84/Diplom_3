@@ -1,17 +1,21 @@
-package entrance;
+package yandexBrowser.entrance;
 
 import User.User;
+import com.codeborne.selenide.WebDriverRunner;
+import io.qameta.allure.junit4.DisplayName;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import pageObject.LoginPage;
 import pageObject.MainPage;
 import pageObject.RecoveryPassPage;
 import pageObject.RegistrationPage;
 
-import static com.codeborne.selenide.Selenide.open;
-import static com.codeborne.selenide.Selenide.page;
+import static com.codeborne.selenide.Selenide.*;
 
 public class EntranceValid {
     MainPage mainPage = page(MainPage.class);
@@ -24,6 +28,13 @@ public class EntranceValid {
 
     @Before
     public void OpenPage() {
+        ChromeOptions options = new ChromeOptions();
+        System.setProperty("webdriver.chrome.driver", "D:\\WebDriver\\bin\\chromedriver2.exe");
+        options.setBinary("C:\\Users\\memax\\AppData\\Local\\Yandex\\YandexBrowser\\Application\\browser.exe");
+        options.addArguments("test-type=browser");
+        options.addArguments("chromeoptions.args", "--no-sandbox");
+        WebDriver driver = new ChromeDriver(options);
+        WebDriverRunner.setWebDriver(driver);
         mainPage = open(mainPage.getUrl(), MainPage.class);
         recoveryPassPage = page(RecoveryPassPage.class);
         mainPage.clickAccountButton();
@@ -35,12 +46,13 @@ public class EntranceValid {
 
     @After
     public void DeleteUser() {
+        closeWebDriver();
         User user = new User();
         user.deleteUser(email, pass);
     }
 
-    //Вход по кнопке «Войти в аккаунт» на главной
     @Test
+    @DisplayName("YandexBrowser. Вход по кнопке «Войти в аккаунт» на главной")
     public void CheckEnteranceLoginButtonMainPageTest() {
         mainPage = open(mainPage.getUrl(), MainPage.class);
         mainPage.clickEnteranceAccountButton();
@@ -48,8 +60,8 @@ public class EntranceValid {
         Assert.assertTrue(mainPage.existOrderButton());
     }
 
-    //Вход через кнопку «Личный кабинет»
     @Test
+    @DisplayName("YandexBrowser. Вход через кнопку «Личный кабинет»")
     public void CheckEnterancePersonalAccMainPageTest() {
         mainPage = open(mainPage.getUrl(), MainPage.class);
         mainPage.clickPersonalAccButton();
@@ -57,8 +69,8 @@ public class EntranceValid {
         Assert.assertTrue(mainPage.existOrderButton());
     }
 
-    //Вход через кнопку в форме регистрации
     @Test
+    @DisplayName("YandexBrowser. Вход через кнопку в форме регистрации")
     public void CheckEnteranceButtonRegistrationPageTest() {
         mainPage = open(mainPage.getUrl(), MainPage.class);
         mainPage.clickAccountButton();
@@ -68,8 +80,8 @@ public class EntranceValid {
         Assert.assertTrue(mainPage.existOrderButton());
     }
 
-    //Вход через кнопку восстановление пароля
     @Test
+    @DisplayName("YandexBrowser. Вход через кнопку восстановление пароля")
     public void CheckEnterancePassRecoveryTest() {
         mainPage = open(mainPage.getUrl(), MainPage.class);
         mainPage.clickAccountButton();

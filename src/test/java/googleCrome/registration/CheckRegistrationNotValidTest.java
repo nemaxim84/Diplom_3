@@ -1,5 +1,6 @@
-package registration;
+package googleCrome.registration;
 
+import io.qameta.allure.junit4.DisplayName;
 import org.junit.Before;
 import org.junit.Test;
 import pageObject.LoginPage;
@@ -22,6 +23,7 @@ public class CheckRegistrationNotValidTest {
     }
 
     @Test
+    @DisplayName("GoogleCrome. Проверяем, что появляется ошибка при вводе пароля меньше 6 символов")
     public void CheckRegistrationValidTest() {
         mainPage.clickAccountButton();
         LoginPage loginPage = page(LoginPage.class);

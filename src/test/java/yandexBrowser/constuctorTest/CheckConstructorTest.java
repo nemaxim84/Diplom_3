@@ -1,17 +1,21 @@
-package constuctorTest;
+package yandexBrowser.constuctorTest;
 
 import User.User;
+import com.codeborne.selenide.WebDriverRunner;
+import io.qameta.allure.junit4.DisplayName;
 import org.junit.After;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import pageObject.LoginPage;
 import pageObject.MainPage;
 
 import pageObject.RegistrationPage;
 
-import static com.codeborne.selenide.Selenide.open;
-import static com.codeborne.selenide.Selenide.page;
+import static com.codeborne.selenide.Selenide.*;
 
 public class CheckConstructorTest {
     MainPage mainPage = page(MainPage.class);
@@ -23,6 +27,13 @@ public class CheckConstructorTest {
 
     @Before
     public void OpenPage() {
+        ChromeOptions options = new ChromeOptions();
+        System.setProperty("webdriver.chrome.driver", "D:\\WebDriver\\bin\\chromedriver2.exe");
+        options.setBinary("C:\\Users\\memax\\AppData\\Local\\Yandex\\YandexBrowser\\Application\\browser.exe");
+        options.addArguments("test-type=browser");
+        options.addArguments("chromeoptions.args", "--no-sandbox");
+        WebDriver driver = new ChromeDriver(options);
+        WebDriverRunner.setWebDriver(driver);
         mainPage = open(mainPage.getUrl(), MainPage.class);
         mainPage.clickAccountButton();
         loginPage = page(LoginPage.class);
@@ -33,12 +44,13 @@ public class CheckConstructorTest {
 
     @After
     public void DeleteUser() {
+        closeWebDriver();
         User user = new User();
         user.deleteUser(email, pass);
     }
 
-    //Проверяем Появление "Начинки" при нажатии на кнопку "Начинки"
     @Test
+    @DisplayName("YandexBrowser. Проверяем Появление \"Начинки\" при нажатии на кнопку \"Начинки\"")
     public void CheckClickFillingTest() {
         mainPage = open(mainPage.getUrl(), MainPage.class);
         mainPage.clickEnteranceAccountButton();
@@ -47,8 +59,8 @@ public class CheckConstructorTest {
         mainPage.existFilling();
     }
 
-    //Проверяем появление "Соус" при нажатии на кнопку "Соус"
     @Test
+    @DisplayName("YandexBrowser. Проверяем появление \"Соус\" при нажатии на кнопку \"Соус\"")
     public void CheckClickSauceTest() {
         mainPage = open(mainPage.getUrl(), MainPage.class);
         mainPage.clickEnteranceAccountButton();
@@ -57,8 +69,8 @@ public class CheckConstructorTest {
         mainPage.existSauce();
     }
 
-    //Проверяем появление "Булки" при нажатии на кнопку "Булки"
     @Test
+    @DisplayName("Проверяем появление \"Булки\" при нажатии на кнопку \"Булки\"")
     public void CheckClickBunsTest() {
         mainPage = open(mainPage.getUrl(), MainPage.class);
         mainPage.clickEnteranceAccountButton();

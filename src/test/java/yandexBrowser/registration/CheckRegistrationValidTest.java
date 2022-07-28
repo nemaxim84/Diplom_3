@@ -1,16 +1,19 @@
-package registration;
+package yandexBrowser.registration;
 
 import User.User;
+import io.qameta.allure.junit4.DisplayName;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import pageObject.LoginPage;
 import pageObject.MainPage;
 import pageObject.RegistrationPage;
 
 
-import static com.codeborne.selenide.Selenide.open;
-import static com.codeborne.selenide.Selenide.page;
+import static com.codeborne.selenide.Selenide.*;
 import static org.junit.Assert.assertTrue;
 
 public class CheckRegistrationValidTest {
@@ -21,16 +24,24 @@ public class CheckRegistrationValidTest {
 
     @Before
     public void OpenPage() {
+        ChromeOptions options = new ChromeOptions();
+        System.setProperty("webdriver.chrome.driver", "D:\\WebDriver\\bin\\chromedriver2.exe");
+        options.setBinary("C:\\Users\\memax\\AppData\\Local\\Yandex\\YandexBrowser\\Application\\browser.exe");
+        options.addArguments("test-type=browser");
+        options.addArguments("chromeoptions.args", "--no-sandbox");
+        WebDriver driver = new ChromeDriver(options);
         mainPage = open(mainPage.getUrl(), MainPage.class);
     }
 
     @After
     public void DeleteUser() {
+        closeWebDriver();
         User user = new User();
         user.deleteUser(email, pass);
     }
 
     @Test
+    @DisplayName("YandexBrowser. Проверяем успешную регистрацию")
     public void CheckRegistrationValidTest() {
         mainPage.clickAccountButton();
         LoginPage loginPage = page(LoginPage.class);
