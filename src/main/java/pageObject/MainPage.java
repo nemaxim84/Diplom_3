@@ -44,9 +44,55 @@ public class MainPage {
 
     @FindBy(xpath = ".//h1[contains(@class,'text text')][contains(text(),'бургер')]")
     private SelenideElement textBurger;
+
     public boolean existTextBurger() {
         textBurger.shouldHave(Condition.visible);
         return textBurger.exists();
+    }
+
+    @FindBy(xpath = ".//span[contains(@class,'text text')][contains(text(),'Начинки')]")
+    private SelenideElement fillingButton;
+
+    public void clickFillingButton() {
+        fillingButton.click();
+    }
+
+    @FindBy(xpath = ".//h2[contains(@class,'text text')][contains(text(),'Начинки')]")
+    private SelenideElement fillingText;
+
+    public boolean existFilling() {
+        fillingText.shouldHave(Condition.visible);
+        return fillingText.exists();
+    }
+
+    @FindBy(xpath = ".//span[contains(@class,'text text')][contains(text(),'Соус')]")
+    private SelenideElement sauceButton;
+
+    public void clickSauceButton() {
+        sauceButton.click();
+    }
+
+    @FindBy(xpath = ".//h2[contains(@class,'text text')][contains(text(),'Соус')]")
+    private SelenideElement sauceText;
+
+    public boolean existSauce() {
+        sauceText.shouldHave(Condition.visible);
+        return sauceText.exists();
+    }
+
+    @FindBy(xpath = ".//span[contains(@class,'text text')][contains(text(),'Булки')]")
+    private SelenideElement bunsButton;
+
+    public void clickBunsButton() {
+        bunsButton.click();
+    }
+
+    @FindBy(xpath = ".//h2[contains(@class,'text text')][contains(text(),'Булки')]")
+    private SelenideElement bunsText;
+
+    public boolean existBuns() {
+        bunsText.shouldHave(Condition.visible);
+        return bunsText.exists();
     }
 }
 

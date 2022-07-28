@@ -19,15 +19,17 @@ public class CheckRegistrationValidTest {
     String email = "nnn1@ya.ru";
     String pass = "1234qwe";
 
-   @Before
+    @Before
     public void OpenPage() {
         mainPage = open(mainPage.getUrl(), MainPage.class);
     }
+
     @After
-    public void DeleteUser(){
-        User user=new User();
+    public void DeleteUser() {
+        User user = new User();
         user.deleteUser(email, pass);
     }
+
     @Test
     public void CheckRegistrationValidTest() {
         mainPage.clickAccountButton();

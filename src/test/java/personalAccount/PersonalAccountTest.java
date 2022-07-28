@@ -48,6 +48,7 @@ public class PersonalAccountTest {
         mainPage.clickPersonalAccButton();
         Assert.assertTrue(personalAccPage.existOrderButton());
     }
+
     //Проверяем переход из личного кабинета в конструктор по клику "Конструктор"
     @Test
     public void CheckClickConstructorFromPersonalAccTest() {
@@ -58,6 +59,7 @@ public class PersonalAccountTest {
         personalAccPage.clickConstructorButton();
         Assert.assertTrue(mainPage.existTextBurger());
     }
+
     //Проверяем переход из личного кабинета в конструктор по клику на логотип
     @Test
     public void CheckClickLogoFromPersonalAccTest() {
@@ -67,5 +69,16 @@ public class PersonalAccountTest {
         mainPage.clickPersonalAccButton();
         personalAccPage.clickLogoButton();
         Assert.assertTrue(mainPage.existTextBurger());
+    }
+
+    //Проверяем кнопку Выход в личном кабинете
+    @Test
+    public void CheckExitButtonFromPersonalAccTest() {
+        mainPage = open(mainPage.getUrl(), MainPage.class);
+        mainPage.clickPersonalAccButton();
+        loginPage.entrance(email, pass);
+        mainPage.clickPersonalAccButton();
+        personalAccPage.clickExitButton();
+        Assert.assertTrue(loginPage.existVlod());
     }
 }

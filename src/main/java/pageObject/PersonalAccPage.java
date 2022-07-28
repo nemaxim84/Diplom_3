@@ -15,12 +15,22 @@ public class PersonalAccPage {
 
     @FindBy(xpath = ".//p[contains(@class,'AppHeader_header')][contains(text(),'Конструктор')]")
     private SelenideElement constructorButton;
-    public void clickConstructorButton(){
+
+    public void clickConstructorButton() {
         constructorButton.click();
     }
+
     @FindBy(xpath = ".//div[contains(@class,'AppHeader_header__logo')]")
     private SelenideElement logoButton;
-    public void clickLogoButton(){
+
+    public void clickLogoButton() {
         logoButton.click();
+    }
+
+    @FindBy(xpath = ".//button[contains(@class,'button')][contains(text(),'Выход')]")
+    private SelenideElement exitButton;
+
+    public void clickExitButton() {
+        exitButton.click();
     }
 }
