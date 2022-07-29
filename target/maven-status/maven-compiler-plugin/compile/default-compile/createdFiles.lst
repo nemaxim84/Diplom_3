@@ -1,0 +1,6 @@
+pageObject\RecoveryPassPage.class
+pageObject\PersonalAccPage.class
+User\User.class
+pageObject\LoginPage.class
+pageObject\MainPage.class
+pageObject\RegistrationPage.class

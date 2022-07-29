@@ -1,6 +1,5 @@
 package yandexBrowser.registration;
 
-import User.User;
 import com.codeborne.selenide.WebDriverRunner;
 import io.qameta.allure.junit4.DisplayName;
 import org.junit.After;
@@ -18,6 +17,8 @@ import static org.junit.Assert.assertTrue;
 
 public class CheckRegistrationNotValidTest {
     MainPage mainPage = page(MainPage.class);
+    LoginPage loginPage;
+    RegistrationPage registrationPage;
     String name = "Maxim1";
     String email = "nnn1@ya.ru";
     String pass = "1234";
@@ -32,20 +33,20 @@ public class CheckRegistrationNotValidTest {
         WebDriver driver = new ChromeDriver(options);
         WebDriverRunner.setWebDriver(driver);
         mainPage = open(mainPage.getUrl(), MainPage.class);
+        loginPage = page(LoginPage.class);
+        registrationPage = page(RegistrationPage.class);
     }
 
     @After
     public void DeleteUser() {
-        closeWebDriver();
+        WebDriverRunner.getWebDriver().close();
     }
 
     @Test
     @DisplayName("YandexBrowser. Проверяем, что появляется ошибка при вводе пароля меньше 6 символов")
     public void CheckRegistrationValidTest() {
         mainPage.clickAccountButton();
-        LoginPage loginPage = page(LoginPage.class);
         loginPage.clickRegButton();
-        RegistrationPage registrationPage = page(RegistrationPage.class);
         registrationPage.setRegData(name, email, pass);
         assertTrue(registrationPage.errorExist());
     }

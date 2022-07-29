@@ -1,0 +1,10 @@
+googleCrome\registration\CheckRegistrationNotValidTest.class
+yandexBrowser\registration\CheckRegistrationValidTest.class
+yandexBrowser\personalAccount\PersonalAccountTest.class
+googleCrome\registration\CheckRegistrationValidTest.class
+yandexBrowser\constuctorTest\CheckConstructorTest.class
+yandexBrowser\entrance\EntranceValidTest.class
+googleCrome\constuctorTest\CheckConstructorTest.class
+googleCrome\entrance\EntranceValidTest.class
+googleCrome\personalAccount\PersonalAccountTest.class
+yandexBrowser\registration\CheckRegistrationNotValidTest.class

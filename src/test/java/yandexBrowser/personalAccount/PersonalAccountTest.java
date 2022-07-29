@@ -46,7 +46,7 @@ public class PersonalAccountTest {
 
     @After
     public void DeleteUser() {
-        closeWebDriver();
+        WebDriverRunner.getWebDriver().close();
         User user = new User();
         user.deleteUser(email, pass);
     }

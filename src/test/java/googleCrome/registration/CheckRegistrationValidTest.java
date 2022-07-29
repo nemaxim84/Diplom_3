@@ -15,6 +15,8 @@ import static org.junit.Assert.assertTrue;
 
 public class CheckRegistrationValidTest {
     MainPage mainPage = page(MainPage.class);
+    LoginPage loginPage;
+    RegistrationPage registrationPage;
     String name = "Maxim1";
     String email = "nnn1@ya.ru";
     String pass = "1234qwe";
@@ -22,6 +24,8 @@ public class CheckRegistrationValidTest {
     @Before
     public void OpenPage() {
         mainPage = open(mainPage.getUrl(), MainPage.class);
+        loginPage = page(LoginPage.class);
+        registrationPage = page(RegistrationPage.class);
     }
 
     @After
@@ -34,9 +38,7 @@ public class CheckRegistrationValidTest {
     @DisplayName("GoogleCrome. Проверяем успешную регистрацию")
     public void CheckRegistrationValidTest() {
         mainPage.clickAccountButton();
-        LoginPage loginPage = page(LoginPage.class);
         loginPage.clickRegButton();
-        RegistrationPage registrationPage = page(RegistrationPage.class);
         registrationPage.setRegData(name, email, pass);
         assertTrue(loginPage.existVlod());
     }

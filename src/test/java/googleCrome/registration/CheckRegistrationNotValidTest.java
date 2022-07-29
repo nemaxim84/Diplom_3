@@ -13,6 +13,8 @@ import static org.junit.Assert.assertTrue;
 
 public class CheckRegistrationNotValidTest {
     MainPage mainPage = page(MainPage.class);
+    LoginPage loginPage;
+    RegistrationPage registrationPage;
     String name = "Maxim1";
     String email = "nnn1@ya.ru";
     String pass = "1234";
@@ -20,6 +22,8 @@ public class CheckRegistrationNotValidTest {
     @Before
     public void OpenPage() {
         mainPage = open(mainPage.getUrl(), MainPage.class);
+        loginPage = page(LoginPage.class);
+        registrationPage = page(RegistrationPage.class);
     }
 
     @Test
