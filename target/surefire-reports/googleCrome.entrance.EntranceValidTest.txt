@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
-Test set: googleCrome.entrance.EntranceValidTest
+Test set: googlecrome.entrance.EntranceValidTest
 -------------------------------------------------------------------------------
-Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 13.671 s - in googleCrome.entrance.EntranceValidTest
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 9.087 s - in googlecrome.entrance.EntranceValidTest

@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
-Test set: googleCrome.constuctorTest.CheckConstructorTest
+Test set: googlecrome.constuctortest.CheckConstructorTest
 -------------------------------------------------------------------------------
-Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 19.605 s - in googleCrome.constuctorTest.CheckConstructorTest
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 15.465 s - in googlecrome.constuctortest.CheckConstructorTest

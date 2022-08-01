@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
-Test set: yandexBrowser.registration.CheckRegistrationNotValidTest
+Test set: yandexbrowser.registration.CheckRegistrationNotValidTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 9.2 s - in yandexBrowser.registration.CheckRegistrationNotValidTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.826 s - in yandexbrowser.registration.CheckRegistrationNotValidTest
