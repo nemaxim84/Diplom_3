@@ -1,0 +1,10 @@
+googlecrome\entrance\EntranceValidTest.class
+googlecrome\personalaccount\PersonalAccountTest.class
+googlecrome\registration\CheckRegistrationShortPassTest.class
+yandexbrowser\entrance\EntranceValidTest.class
+yandexbrowser\personalaccount\PersonalAccountTest.class
+googlecrome\constuctortest\CheckConstructorTest.class
+googlecrome\registration\CheckRegistrationTest.class
+yandexbrowser\constuctortest\CheckConstructorTest.class
+yandexbrowser\registration\CheckRegistrationShortPassTest.class
+yandexbrowser\registration\CheckRegistrationTest.class
