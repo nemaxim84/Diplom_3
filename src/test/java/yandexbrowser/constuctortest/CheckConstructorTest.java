@@ -12,18 +12,16 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import pageobject.LoginPage;
 import pageobject.MainPage;
-
-import pageobject.RegistrationPage;
+import user.UserClient;
 
 import static com.codeborne.selenide.Selenide.*;
+import static org.junit.Assert.assertTrue;
 
 public class CheckConstructorTest {
-    private MainPage mainPage = page(MainPage.class);
-    private String name;
-    private String email;
-    private String pass;
+    private MainPage mainPage;
     private LoginPage loginPage;
     private User user;
+    private UserClient userClient = new UserClient();
 
     @Before
     public void openPage() {
@@ -34,42 +32,40 @@ public class CheckConstructorTest {
         options.addArguments("chromeoptions.args", "--no-sandbox");
         WebDriver driver = new ChromeDriver(options);
         WebDriverRunner.setWebDriver(driver);
-        user = new User();
+        user = user.createUserRandom();
         loginPage = page(LoginPage.class);
-        name = user.getName();
-        email = user.getEmail();
-        pass = user.getPassword();
-        user.createUser(name, email, pass);
-        mainPage = open(mainPage.getUrl(), MainPage.class);
+        userClient.createUserRest(user.getName(), user.getEmail(), user.getPassword());
+        mainPage = open(mainPage.URL, MainPage.class);
         mainPage.clickEnteranceAccountButton();
-        loginPage.entrance(email, pass);
+        loginPage.entrance(user.getEmail(), user.getPassword());
     }
 
     @After
     public void deleteUser() {
         WebDriverRunner.getWebDriver().close();
-        user.deleteUser(email, pass);
+        userClient.deleteUser(user.getEmail(), user.getPassword());
     }
 
     @Test
     @DisplayName("YandexBrowser. Проверяем Появление \"Начинки\" при нажатии на кнопку \"Начинки\"")
     public void checkClickFillingTest() {
         mainPage.clickFillingButton();
-        mainPage.existFilling();
+        assertTrue(mainPage.existFilling());
     }
 
     @Test
     @DisplayName("YandexBrowser. Проверяем появление \"Соус\" при нажатии на кнопку \"Соус\"")
     public void checkClickSauceTest() {
         mainPage.clickSauceButton();
-        mainPage.existSauce();
+        assertTrue(mainPage.existSauce());
     }
 
     @Test
     @DisplayName("Проверяем появление \"Булки\" при нажатии на кнопку \"Булки\"")
     public void checkClickBunsTest() {
         mainPage.clickFillingButton();
+        mainPage.existFilling();
         mainPage.clickBunsButton();
-        mainPage.existBuns();
+        assertTrue(mainPage.existBuns());
     }
 }

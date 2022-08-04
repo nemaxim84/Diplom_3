@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: yandexbrowser.personalaccount.PersonalAccountTest
 -------------------------------------------------------------------------------
-Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 29.571 s - in yandexbrowser.personalaccount.PersonalAccountTest
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 33.565 s - in yandexbrowser.personalaccount.PersonalAccountTest

@@ -8,46 +8,46 @@ import pageobject.LoginPage;
 import pageobject.MainPage;
 import pageobject.RegistrationPage;
 import user.User;
+import user.UserClient;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.Selenide.page;
 import static org.junit.Assert.assertTrue;
 
-public class CheckRegistrationNotValidTest {
-    private MainPage mainPage = page(MainPage.class);
+public class CheckRegistrationShortPassTest {
+    static Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+    private MainPage mainPage;
     private LoginPage loginPage;
     private RegistrationPage registrationPage;
-    private String name;
-    private String email;
-    private String pass;
     private User user;
+    private UserClient userClient = new UserClient();
 
     @Before
     public void openPage() {
-        user = new User();
-        name = user.getName();
-        email=user.getEmail();
-        pass=User.shortPass;
-        mainPage = open(mainPage.getUrl(), MainPage.class);
+        user = user.createUserRandom();
+        mainPage = open(mainPage.URL, MainPage.class);
         loginPage = page(LoginPage.class);
         registrationPage = page(RegistrationPage.class);
-
     }
+
     @After
-    public void tearDown() throws Exception {
+    public void deleteUser() {
         try {
-            user.deleteUser(email, pass);
+            userClient.deleteUser(user.getEmail(), User.SHORT_PASS);
         } catch (Exception e){
-            System.out.println("Пользователь не создался");
+            logger.log(Level.WARNING,"Пользователь не создавался. Пароль меньше 6 символов");
         }
     }
 
     @Test
     @DisplayName("GoogleCrome. Проверяем, что появляется ошибка при вводе пароля меньше 6 символов")
-    public void checkRegistrationValidTest() {
+    public void checkRegistrationNotValidTest() {
         mainPage.clickAccountButton();
         loginPage.clickRegButton();
-        registrationPage.setRegData(name, email, pass);
+        registrationPage.setRegData(user.getName(), user.getEmail(), User.SHORT_PASS);
         assertTrue(registrationPage.errorExist());
     }
 }

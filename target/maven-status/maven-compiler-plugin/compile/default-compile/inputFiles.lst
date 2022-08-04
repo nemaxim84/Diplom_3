@@ -1,6 +1,8 @@
-D:\Projects\Diplom_3\src\main\java\pageObject\PersonalAccPage.java
-D:\Projects\Diplom_3\src\main\java\pageObject\LoginPage.java
-D:\Projects\Diplom_3\src\main\java\pageObject\RegistrationPage.java
-D:\Projects\Diplom_3\src\main\java\pageObject\RecoveryPassPage.java
-D:\Projects\Diplom_3\src\main\java\User\User.java
-D:\Projects\Diplom_3\src\main\java\pageObject\MainPage.java
+D:\Projects\Diplom_3\src\main\java\pageobject\PersonalAccPage.java
+D:\Projects\Diplom_3\src\main\java\user\UserClient.java
+D:\Projects\Diplom_3\src\main\java\pageobject\LoginPage.java
+D:\Projects\Diplom_3\src\main\java\pageobject\RegistrationPage.java
+D:\Projects\Diplom_3\src\main\java\pageobject\RecoveryPassPage.java
+D:\Projects\Diplom_3\src\main\java\user\EndPoint.java
+D:\Projects\Diplom_3\src\main\java\user\User.java
+D:\Projects\Diplom_3\src\main\java\pageobject\MainPage.java

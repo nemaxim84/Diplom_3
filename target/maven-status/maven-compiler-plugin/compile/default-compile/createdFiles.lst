@@ -1,6 +1,8 @@
-pageObject\RecoveryPassPage.class
-pageObject\PersonalAccPage.class
-User\User.class
-pageObject\LoginPage.class
-pageObject\MainPage.class
-pageObject\RegistrationPage.class
+user\UserClient.class
+pageobject\RegistrationPage.class
+pageobject\MainPage.class
+pageobject\PersonalAccPage.class
+pageobject\LoginPage.class
+pageobject\RecoveryPassPage.class
+user\EndPoint.class
+user\User.class

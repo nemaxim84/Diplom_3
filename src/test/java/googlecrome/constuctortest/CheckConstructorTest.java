@@ -1,6 +1,5 @@
 package googlecrome.constuctortest;
 
-import user.RequestSpecification;
 import user.User;
 import io.qameta.allure.junit4.DisplayName;
 import org.junit.After;
@@ -8,56 +7,53 @@ import org.junit.Before;
 import org.junit.Test;
 import pageobject.LoginPage;
 import pageobject.MainPage;
-import pageobject.RegistrationPage;
+import user.UserClient;
 
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.Selenide.page;
+import static org.junit.Assert.assertTrue;
 
 public class CheckConstructorTest {
-    private MainPage mainPage = page(MainPage.class);
-    private String name;
-    private String email;
-    private String pass;
+    private MainPage mainPage;
     private LoginPage loginPage;
     private User user;
+    private UserClient userClient = new UserClient();
 
     @Before
     public void openPage() {
-        user = new User();
+        user = user.createUserRandom();
         loginPage = page(LoginPage.class);
-        name = user.getName();
-        email = user.getEmail();
-        pass = user.getPassword();
-        user.createUser(name, email, pass);
-        mainPage = open(mainPage.getUrl(), MainPage.class);
+        userClient.createUserRest(user.getName(), user.getEmail(), user.getPassword());
+        mainPage = open(mainPage.URL, MainPage.class);
         mainPage.clickEnteranceAccountButton();
-        loginPage.entrance(email, pass);
+        loginPage.entrance(user.getEmail(), user.getPassword());
     }
 
     @After
     public void deleteUser() {
-        user.deleteUser(email, pass);
+        userClient.deleteUser(user.getEmail(), user.getPassword());
     }
 
     @Test
     @DisplayName("GoogleCrome. Проверяем Появление \"Начинки\" при нажатии на кнопку \"Начинки\"")
     public void checkClickFillingTest() {
         mainPage.clickFillingButton();
-        mainPage.existFilling();
+        assertTrue(mainPage.existFilling());
     }
 
     @Test
     @DisplayName("GoogleCrome. Проверяем появление \"Соус\" при нажатии на кнопку \"Соус\"")
     public void checkClickSauceTest() {
         mainPage.clickSauceButton();
-        mainPage.existSauce();
+        assertTrue(mainPage.existSauce());
     }
 
     @Test
     @DisplayName("GoogleCrome. Проверяем появление \"Булки\" при нажатии на кнопку \"Булки\"")
     public void checkClickBunsTest() {
         mainPage.clickFillingButton();
+        mainPage.existFilling();
         mainPage.clickBunsButton();
-        mainPage.existBuns();
+        assertTrue(mainPage.existBuns());
     }
 }

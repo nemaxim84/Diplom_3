@@ -4,7 +4,6 @@ import user.User;
 import com.codeborne.selenide.WebDriverRunner;
 import io.qameta.allure.junit4.DisplayName;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
@@ -13,19 +12,17 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import pageobject.LoginPage;
 import pageobject.MainPage;
 import pageobject.PersonalAccPage;
-import pageobject.RegistrationPage;
+import user.UserClient;
 
 import static com.codeborne.selenide.Selenide.*;
 import static org.junit.Assert.assertTrue;
 
 public class PersonalAccountTest {
-    private MainPage mainPage = page(MainPage.class);
-    private String name;
-    private String email;
-    private String pass;
+    private MainPage mainPage;
     private LoginPage loginPage;
     private PersonalAccPage personalAccPage;
     private User user;
+    private UserClient userClient = new UserClient();
 
     @Before
     public void openPage() {
@@ -36,40 +33,33 @@ public class PersonalAccountTest {
         options.addArguments("chromeoptions.args", "--no-sandbox");
         WebDriver driver = new ChromeDriver(options);
         WebDriverRunner.setWebDriver(driver);
-        user = new User();
+        user = user.createUserRandom();
         loginPage = page(LoginPage.class);
-        name = user.getName();
-        email = user.getEmail();
-        pass = user.getPassword();
-        user.createUser(name, email, pass);
+        userClient.createUserRest(user.getName(), user.getEmail(), user.getPassword());
         personalAccPage = page(PersonalAccPage.class);
-        loginPage=page(LoginPage.class);
+        loginPage = page(LoginPage.class);
+        mainPage = open(mainPage.URL, MainPage.class);
+        mainPage.clickPersonalAccButton();
+        loginPage.entrance(user.getEmail(), user.getPassword());
+        mainPage.clickPersonalAccButton();
     }
 
     @After
     public void deleteUser() {
         WebDriverRunner.getWebDriver().close();
-        user.deleteUser(email, pass);
+        userClient.deleteUser(user.getEmail(), user.getPassword());
     }
 
     //Проверяем переход по клику на «Личный кабинет»
     @Test
     @DisplayName("YandexBrowser. Проверяем переход по клику на «Личный кабинет»")
     public void checkClickPersonalAccTest() {
-        mainPage = open(mainPage.getUrl(), MainPage.class);
-        mainPage.clickPersonalAccButton();
-        loginPage.entrance(email, pass);
-        mainPage.clickPersonalAccButton();
         assertTrue(personalAccPage.existOrderButton());
     }
 
     @Test
     @DisplayName("YandexBrowser. Проверяем переход из личного кабинета в конструктор по клику \"Конструктор\"")
     public void checkClickConstructorFromPersonalAccTest() {
-        mainPage = open(mainPage.getUrl(), MainPage.class);
-        mainPage.clickPersonalAccButton();
-        loginPage.entrance(email, pass);
-        mainPage.clickPersonalAccButton();
         personalAccPage.clickConstructorButton();
         assertTrue(mainPage.existTextBurger());
     }
@@ -77,10 +67,6 @@ public class PersonalAccountTest {
     @Test
     @DisplayName("YandexBrowser. Проверяем переход из личного кабинета в конструктор по клику на логотип")
     public void checkClickLogoFromPersonalAccTest() {
-        mainPage = open(mainPage.getUrl(), MainPage.class);
-        mainPage.clickPersonalAccButton();
-        loginPage.entrance(email, pass);
-        mainPage.clickPersonalAccButton();
         personalAccPage.clickLogoButton();
         assertTrue(mainPage.existTextBurger());
     }
@@ -88,11 +74,7 @@ public class PersonalAccountTest {
     @Test
     @DisplayName("YandexBrowser. Проверяем кнопку Выход в личном кабинете")
     public void checkExitButtonFromPersonalAccTest() {
-        mainPage = open(mainPage.getUrl(), MainPage.class);
-        mainPage.clickPersonalAccButton();
-        loginPage.entrance(email, pass);
-        mainPage.clickPersonalAccButton();
         personalAccPage.clickExitButton();
-        assertTrue(loginPage.existVlod());
+        assertTrue(loginPage.existVhod());
     }
 }

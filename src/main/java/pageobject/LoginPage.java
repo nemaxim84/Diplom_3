@@ -24,10 +24,11 @@ public class LoginPage {
         registrationButton.click();
     }
 
-    public boolean existVlod() {
+    public boolean existVhod() {
         wordVhod.shouldHave(Condition.visible);
         return wordVhod.exists();
     }
+
 
     public void clickLogoButton() {
         logoButton.click();

@@ -1,6 +1,5 @@
 package yandexbrowser.registration;
 
-import user.User;
 import com.codeborne.selenide.WebDriverRunner;
 import io.qameta.allure.junit4.DisplayName;
 import org.junit.After;
@@ -12,17 +11,23 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import pageobject.LoginPage;
 import pageobject.MainPage;
 import pageobject.RegistrationPage;
-import static com.codeborne.selenide.Selenide.*;
+import user.User;
+import user.UserClient;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Selenide.page;
 import static org.junit.Assert.assertTrue;
 
-public class CheckRegistrationValidTest {
-    private MainPage mainPage = page(MainPage.class);
+public class CheckRegistrationShortPassTest {
+    static Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+    private MainPage mainPage;
     private LoginPage loginPage;
     private RegistrationPage registrationPage;
-    private String name;
-    private String email;
-    private String pass;
     private User user;
+    private UserClient userClient = new UserClient();
 
     @Before
     public void openPage() {
@@ -33,11 +38,8 @@ public class CheckRegistrationValidTest {
         options.addArguments("chromeoptions.args", "--no-sandbox");
         WebDriver driver = new ChromeDriver(options);
         WebDriverRunner.setWebDriver(driver);
-        user = new User();
-        name = user.getName();
-        email=user.getEmail();
-        pass=user.getPassword();
-        mainPage = open(mainPage.getUrl(), MainPage.class);
+        user = user.createUserRandom();
+        mainPage = open(mainPage.URL, MainPage.class);
         loginPage = page(LoginPage.class);
         registrationPage = page(RegistrationPage.class);
     }
@@ -45,15 +47,19 @@ public class CheckRegistrationValidTest {
     @After
     public void deleteUser() {
         WebDriverRunner.getWebDriver().close();
-        user.deleteUser(email, pass);
+        try {
+            userClient.deleteUser(user.getEmail(), User.SHORT_PASS);
+        } catch (Exception e){
+            logger.log(Level.WARNING,"Пользователь не создавался. Пароль меньше 6 символов");
+        }
     }
 
     @Test
-    @DisplayName("YandexBrowser. Проверяем успешную регистрацию")
-    public void checkRegistrationValidTest() {
+    @DisplayName("YandexBrowser. Проверяем, что появляется ошибка при вводе пароля меньше 6 символов")
+    public void checkRegistrationNotValidTest() {
         mainPage.clickAccountButton();
         loginPage.clickRegButton();
-        registrationPage.setRegData(name, email, pass);
-        assertTrue(loginPage.existVlod());
+        registrationPage.setRegData(user.getName(), user.getEmail(), User.SHORT_PASS);
+        assertTrue(registrationPage.errorExist());
     }
 }

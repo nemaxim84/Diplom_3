@@ -5,11 +5,7 @@ import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.support.FindBy;
 
 public class MainPage {
-    private static final String URL = "https://stellarburgers.nomoreparties.site/";
-
-    public String getUrl() {
-        return URL;
-    }
+    public static final String URL = "https://stellarburgers.nomoreparties.site/";
 
     //Кнопка "Личный кабинет"
     @FindBy(xpath = ".//p[contains(@class,'AppHeader_header__linkText')][contains(text(),'Личный')]")
@@ -24,15 +20,15 @@ public class MainPage {
     private SelenideElement textBurger;
     @FindBy(xpath = ".//span[contains(@class,'text text')][contains(text(),'Начинки')]")
     private SelenideElement fillingButton;
-    @FindBy(xpath = ".//h2[contains(@class,'text text')][contains(text(),'Начинки')]")
+    @FindBy(xpath = ".//div[contains(@class,'tab_tab_type')]/span[contains(text(),'Начинки')]")
     private SelenideElement fillingText;
     @FindBy(xpath = ".//span[contains(@class,'text text')][contains(text(),'Соус')]")
     private SelenideElement sauceButton;
-    @FindBy(xpath = ".//h2[contains(@class,'text text')][contains(text(),'Соус')]")
+    @FindBy(xpath = ".//div[contains(@class,'tab_tab_type')]/span[contains(text(),'Соус')]")
     private SelenideElement sauceText;
     @FindBy(xpath = ".//span[contains(@class,'text text')][contains(text(),'Булки')]")
     private SelenideElement bunsButton;
-    @FindBy(xpath = ".//h2[contains(@class,'text text')][contains(text(),'Булки')]")
+    @FindBy(xpath = ".//div[contains(@class,'tab_tab_type')]/span[contains(text(),'Булки')]")
     private SelenideElement bunsText;
 
     public void clickAccountButton() {

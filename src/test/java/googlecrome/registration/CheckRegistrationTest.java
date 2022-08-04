@@ -8,34 +8,33 @@ import org.junit.Test;
 import pageobject.LoginPage;
 import pageobject.MainPage;
 import pageobject.RegistrationPage;
+import user.UserClient;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.Selenide.page;
 import static org.junit.Assert.assertTrue;
 
-public class CheckRegistrationValidTest {
-    private MainPage mainPage = page(MainPage.class);
+public class CheckRegistrationTest {
+    private MainPage mainPage;
     private LoginPage loginPage;
     private RegistrationPage registrationPage;
-    private String name;
-    private String email;
-    private String pass;
     private User user;
+    private UserClient userClient = new UserClient();
 
     @Before
     public void openPage() {
-        user = new User();
-        name = user.getName();
-        email=user.getEmail();
-        pass=user.getPassword();
-        mainPage = open(mainPage.getUrl(), MainPage.class);
+        user = user.createUserRandom();
+        mainPage = open(mainPage.URL, MainPage.class);
         loginPage = page(LoginPage.class);
         registrationPage = page(RegistrationPage.class);
     }
 
     @After
     public void deleteUser() {
-        user.deleteUser(email, pass);
+        userClient.deleteUser(user.getEmail(), user.getPassword());
     }
 
     @Test
@@ -43,7 +42,8 @@ public class CheckRegistrationValidTest {
     public void checkRegistrationValidTest() {
         mainPage.clickAccountButton();
         loginPage.clickRegButton();
-        registrationPage.setRegData(name, email, pass);
-        assertTrue(loginPage.existVlod());
+        registrationPage.setRegData(user.getName(), user.getEmail(), user.getPassword());
+        assertTrue(loginPage.existVhod());
     }
+
 }
